@@ -1,12 +1,12 @@
 CREATE TABLE "tasksToDo" (
 "id" SERIAL PRIMARY KEY,
-"TaskName" VARCHAR(30) NOT NULL,
+"taskName" VARCHAR(30) NOT NULL,
 "taskCompleted" BOOLEAN,
 "taskNotes" VARCHAR(120)
 );
 
 INSERT INTO "tasksToDo"
-("TaskName", "taskCompleted", "taskNotes")
+("taskName", "taskCompleted", "taskNotes")
 VALUES
 ('groceries', true, 'Went to Target for groceries'),
 ('mow front lawn', false, 'Mow front lawn'),

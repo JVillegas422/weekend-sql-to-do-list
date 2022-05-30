@@ -1,9 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool')
-const ToDoRouter = express.Router();
+const toDoRouter = express.Router();
 // DB CONNECTION
 
-ToDoRouter.get('/', (req, res) => {
+toDoRouter.get('/', (req, res) => {
     const sqlQuery = `
         SELECT * FROM tasksToDo
         ORDER BY "name" ASC
@@ -22,13 +22,13 @@ ToDoRouter.get('/', (req, res) => {
 });
 
 // POST
-ToDoRouter.post('/', (req, res)=>{
+toDoRouter.post('/', (req, res)=>{
     let addTask = req.body;
     console.log('adding task!', addTask);
     
     const sqlQuery = `
     INSERT INTO "task"
-        ("TaskName", "taskCompleted", "taskNotes")
+        ("taskName", "taskCompleted", "taskNotes")
     VALUES
         ($1, $2, $3);
 `; 
@@ -50,7 +50,7 @@ pool.query(sqlQuery, sqlParams)
 });
 
 // PUT
-ToDoRouter.put('/:id', (req, res) => {
+toDoRouter.put('/:id', (req, res) => {
     console.log('updating task stat', req.params.id);
     let taskId = req.params.id;
     
@@ -89,7 +89,7 @@ ToDoRouter.put('/:id', (req, res) => {
 });
 
 // DELETE
-ToDoRouter.delete('/:id', (req, res) => {
+toDoRouter.delete('/:id', (req, res) => {
     let taskId = req.params.id;
     console.log('Delete request for id', taskId);
   
@@ -113,4 +113,4 @@ ToDoRouter.delete('/:id', (req, res) => {
 
 
 
-module.exports = ToDoRouter;
+module.exports = toDoRouter;
