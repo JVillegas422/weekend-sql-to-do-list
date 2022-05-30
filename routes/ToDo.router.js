@@ -3,9 +3,9 @@ const pool = require('../modules/pool')
 const ToDoRouter = express.Router();
 // DB CONNECTION
 
-ToDoRouter.get('/', (req, res) => {{
+ToDoRouter.get('/', (req, res) => {
     const sqlQuery = `
-        SELECT * FROM task
+        SELECT * FROM tasksToDo
         ORDER BY "name" ASC
     `;
 
@@ -19,7 +19,7 @@ ToDoRouter.get('/', (req, res) => {{
 
             res.sendStatus(500);
         });
-}});
+});
 
 // POST
 ToDoRouter.post('/', (req, res)=>{
