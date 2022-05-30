@@ -88,5 +88,29 @@ ToDoRouter.put('/:id', (req, res) => {
 
 });
 
+// DELETE
+ToDoRouter.delete('/:id', (req, res) => {
+    let taskId = req.params.id;
+    console.log('Delete request for id', taskId);
+  
+    let sqlQuery = `
+    DELETE FROM "task" 
+    WHERE "id" = $1;
+    `;
+    const sqlParams = [
+        taskId,             
+    ];
+    pool.query(sqlQuery, sqlParams)
+      .then(() => {
+        console.log('task deleted');
+        res.sendStatus(204);
+      })
+      .catch( (error) => {
+        console.log(`Error making database query`, error);
+        res.sendStatus(500); 
+      })
+  })
+
+
 
 module.exports = pool;
