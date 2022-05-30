@@ -3,7 +3,7 @@ console.log('In the server');
 const express = require('express');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
-const ToDoRouter = require('./routes/ToDo.router')
+// const ToDoRouter = require('./routes/ToDo.router')
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static('server/public'));
 
 // ROUTES
+let ToDoRouter = require('./routes/ToDo.router')
 app.use('/task', ToDoRouter);
 
 // Start listening for requests on a specific port

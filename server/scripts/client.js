@@ -4,33 +4,33 @@ $( document ).ready( function(){
     console.log( 'JQ' );
     // Establish Click Listeners
     // setupClickListeners()
-    // load existing koalas on page load
-    addTaskBtn();
+    // load existing task on page load
+    getTask();
   
   }); // end doc ready
 
 // Still working on this
-function setupClickListeners() {
-    $( '#addTaskBtn' ).on( 'click', function(){
-      console.log( 'in addTaskBtn on click' );
-      // get user input and put in an object
-      let taskToAdd = {
-        taskName: $('#taskName').val(),
-        taskCompleted: $('#taskCompleted').val(),
-        taskNotes: $('#taskNotes').val()
-      };
-      fetchTask();
-    });
+// function setupClickListeners() {
+//     $( '#addTaskBtn' ).on( 'click', function(){
+//       console.log( 'in addTaskBtn on click' );
+//       // get user input and put in an object
+//       let taskToAdd = {
+//         taskName: $('#taskName').val(),
+//         taskCompleted: $('#taskCompleted').val(),
+//         taskNotes: $('#taskNotes').val()
+//       };
+//       fetchTask();
+//     });
 
-    $(document).on('click', '.updateTaskStatsBtn', updateTaskStatus)
+//     $(document).on('click', '.updateTaskStatsBtn', updateTaskStatus)
 
-    $(document).on('click', '.deleteTaskBtn', deleteTask);
+//     $(document).on('click', '.deleteTaskBtn', deleteTask);
 
-  }
+//   }
   
-  function addTaskBtn(){
-    console.log( 'in add task' );
-    // ajax call to server to get koalas
+  function getTask(){
+    console.log( 'in get task' );
+    // ajax call to server to get task
     $('#taskTable').empty();
     $.ajax({
         type: 'GET',
@@ -52,7 +52,7 @@ function setupClickListeners() {
     });
   } // end addTasks
 
-function fetchTask( newTask ){
+function postTask( newTask ){
   console.log( 'in fetchTask', newTask );
   $.ajax({
     type: 'POST',
@@ -60,7 +60,7 @@ function fetchTask( newTask ){
     data: newTask,
   }).then(()=>{
     console.log('POST works');
-    addTaskBtn();
+    getTask();
   
   }).catch((err) => {
     alert('Failed to add task');
@@ -89,7 +89,7 @@ function updateTaskStatus() {
   })
   .then(() => {
     console.log('PUT success');
-    addTaskBtn();
+    getTask();
   })
   .catch((err) => {
     console.log('There as an error in PUT', err)
@@ -98,37 +98,59 @@ function updateTaskStatus() {
 }
 
 function deleteTask() {
-  const taskId = $(this).parents('tr').data('task-id');
+  // $(this) === <button>
+  // Find the <tr> that's the parent of the <button>
+  let tr = $(this).parents('tr');
+  let taskId = tr.data('task-id');
 
   console.log('in deleteTask()', taskId);
 
-  Swal.fire({
-    title: 'Are you sure you want to delete this task?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-      $.ajax({
-        method: 'DELETE',
-        url: `/task/${taskId}`,       
+  // Send a DELETE /task/:id request to the server
+  $.ajax({
+      method: 'DELETE',
+      url: `/task/${taskId}`,  
+  })
+      .then(() => {
+          console.log('DELETE /task succeeded 👍');
       })
-        .then(() => {
-          addTaskBtn()
-            console.log('DELETE /task success');
-        })
-        .catch((err) => {
-            alert('Failed to delete.');
-            console.log('DELETE /task failed:', err);
-        });
-      }
-    });
-  } 
+      .catch((err) => {
+          alert('Failed to delete task. Sorry.');
+          console.log('DELETE /task failed:', err);
+      });
+}
+
+// function deleteTask() {
+//   const taskId = $(this).parents('tr').data('task-id');
+
+//   console.log('in deleteTask()', taskId);
+
+//   Swal.fire({
+//     title: 'Are you sure you want to delete this task?',
+//     text: "You won't be able to revert this!",
+//     icon: 'warning',
+//     showCancelButton: true,
+//     confirmButtonColor: '#3085d6',
+//     cancelButtonColor: '#d33',
+//     confirmButtonText: 'Yes, delete it!'
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       Swal.fire(
+//         'Deleted!',
+//         'Your file has been deleted.',
+//         'success'
+//       )
+//       $.ajax({
+//         method: 'DELETE',
+//         url: `/task/${taskId}`,       
+//       })
+//         .then(() => {
+//           addTaskBtn()
+//             console.log('DELETE /task success');
+//         })
+//         .catch((err) => {
+//             alert('Failed to delete.');
+//             console.log('DELETE /task failed:', err);
+//         });
+//       }
+//     });
+//   } 
