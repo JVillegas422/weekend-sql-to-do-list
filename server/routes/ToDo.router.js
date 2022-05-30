@@ -5,7 +5,7 @@ const toDoRouter = express.Router();
 
 toDoRouter.get('/toDo', (req, res) => {
     const sqlQuery = `
-        SELECT * FROM tasksToDo
+        SELECT * FROM toDo
         ORDER BY "name" ASC
     `;
 
@@ -27,7 +27,7 @@ toDoRouter.post('/toDo', (req, res)=>{
     console.log('adding task!', addTask);
     
     const sqlQuery = `
-    INSERT INTO "tasksToDo"
+    INSERT INTO "toDo"
         ("taskName", "taskCompleted", "taskNotes")
     VALUES
         ($1, $2, $3);
@@ -67,7 +67,7 @@ toDoRouter.put('/:id', (req, res) => {
     console.log('task status', changeTaskStatus)
 
     const sqlQuery = `
-    UPDATE task
+    UPDATE toDo
     SET "taskCompleted" = $2
     WHERE id = $1;
     `
