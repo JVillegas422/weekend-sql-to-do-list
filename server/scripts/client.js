@@ -10,17 +10,23 @@ $( document ).ready( function(){
   }); // end doc ready
 
 // Still working on this
-// function setupClickListeners() {
-//     $( '#addTaskBtn' ).on( 'click', function(){
-//       console.log( 'in addTaskBtn on click' );
-//       // get user input and put in an object
-//       let taskToAdd = {
-//         taskName: $('#taskName').val(),
-//         taskCompleted: $('#taskCompleted').val(),
-//         taskNotes: $('#taskNotes').val()
-//       };
-//     }); 
-//   }
+function setupClickListeners() {
+    $( '#addTaskBtn' ).on( 'click', function(){
+      console.log( 'in addTaskBtn on click' );
+      // get user input and put in an object
+      let taskToAdd = {
+        taskName: $('#taskName').val(),
+        taskCompleted: $('#taskCompleted').val(),
+        taskNotes: $('#taskNotes').val()
+      };
+      fetchTask();
+    });
+
+    $(document).on('click', '.updateTaskStatsBtn', updateTaskStatus)
+
+    $(document).on('click', '.deleteTaskBtn', deleteTask);
+
+  }
   
   function addTaskBtn(){
     console.log( 'in add task' );
