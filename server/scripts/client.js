@@ -38,10 +38,91 @@ $( document ).ready( function(){
                 <td>${response[i].taskCompleted}</td>
                 <td>${response[i].taskNotes}</td>
                 <td>
-                    <button class="deleteButton">❌ 🐨 </button>
+                    <button class="deleteTaskBtn">❌</button>
                 </td>
             </tr>
           `);
         }
     });
   } // end addTasks
+
+function fetchTask( newTask ){
+  console.log( 'in fetchTask', newTask );
+  $.ajax({
+    type: 'POST',
+    url: '/task',
+    data: newTask,
+  }).then(()=>{
+    console.log('POST works');
+    addTaskBtn();
+  
+  }).catch((err) => {
+    alert('Failed to add task');
+    console.log('POST failed:', err);
+  });
+  
+}
+
+function updateTaskStatus() {
+  console.log('In task PUT')
+  const taskId = $(this).parents('tr').data('task-id')
+  console.log('Task Id is', taskId)
+
+  let taskCompleted  = $(this).parents('td').data('taskCompleted');
+  console.log('has task been completed?', taskCompleted);
+
+  let changeTaskStatus = {
+    taskStatus: taskCompleted
+  }
+
+  
+  $.ajax({
+    url:'/task/' + taskId,
+    method: 'PUT',
+    data: changeTaskStatus
+  })
+  .then(() => {
+    console.log('PUT success');
+    addTaskBtn();
+  })
+  .catch((err) => {
+    console.log('There as an error in PUT', err)
+  })
+
+}
+
+function deleteTask() {
+  const taskId = $(this).parents('tr').data('task-id');
+
+  console.log('in deleteTask()', taskId);
+
+  Swal.fire({
+    title: 'Are you sure you want to delete this task?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+      $.ajax({
+        method: 'DELETE',
+        url: `/task/${taskId}`,       
+      })
+        .then(() => {
+          addTaskBtn()
+            console.log('DELETE /task success');
+        })
+        .catch((err) => {
+            alert('Failed to delete.');
+            console.log('DELETE /task failed:', err);
+        });
+      }
+    });
+  } 
