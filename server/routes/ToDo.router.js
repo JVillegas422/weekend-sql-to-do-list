@@ -3,7 +3,7 @@ const pool = require('../modules/pool')
 const toDoRouter = express.Router();
 // DB CONNECTION
 
-toDoRouter.get('/', (req, res) => {
+toDoRouter.get('/toDo', (req, res) => {
     const sqlQuery = `
         SELECT * FROM tasksToDo
         ORDER BY "name" ASC
@@ -22,12 +22,12 @@ toDoRouter.get('/', (req, res) => {
 });
 
 // POST
-toDoRouter.post('/', (req, res)=>{
+toDoRouter.post('/toDo', (req, res)=>{
     let addTask = req.body;
     console.log('adding task!', addTask);
     
     const sqlQuery = `
-    INSERT INTO "task"
+    INSERT INTO "tasksToDo"
         ("taskName", "taskCompleted", "taskNotes")
     VALUES
         ($1, $2, $3);
@@ -94,7 +94,7 @@ toDoRouter.delete('/:id', (req, res) => {
     console.log('Delete request for id', taskId);
   
     let sqlQuery = `
-    DELETE FROM "task" 
+    DELETE FROM "tasksToDo" 
     WHERE "id" = $1;
     `;
     const sqlParams = [

@@ -1,11 +1,11 @@
-CREATE TABLE "tasksToDo" (
+CREATE TABLE "toDo" (
 "id" SERIAL PRIMARY KEY,
 "taskName" VARCHAR(30) NOT NULL,
 "taskCompleted" BOOLEAN,
 "taskNotes" VARCHAR(120)
 );
 
-INSERT INTO "tasksToDo"
+INSERT INTO "toDo"
 ("taskName", "taskCompleted", "taskNotes")
 VALUES
 ('groceries', true, 'Went to Target for groceries'),
@@ -14,4 +14,4 @@ VALUES
 ('clean storage', true, 'Cleaned the storage room'),
 ('wash car', false, 'Get car washed');
 
-SELECT * FROM "tasksToDo";
+SELECT * FROM "toDo";

@@ -6,6 +6,7 @@ $( document ).ready( function(){
     // setupClickListeners()
     // load existing task on page load
     getTask();
+    postTask();
   
   }); // end doc ready
 
@@ -34,13 +35,13 @@ $( document ).ready( function(){
     $('#taskTable').empty();
     $.ajax({
         type: 'GET',
-        url: '/task'
+        url: '/toDo'
     }).then(function (response) {
-        console.log('GET /task response', response);
+        console.log('GET /toDo response', response);
         for (let i = 0; i < response.length; i++) {
             $('#taskTable').append(`
-            <tr data-task-id="${response[i].id}">
-                <td>${response[i].TaskName}</td>
+            <tr>
+                <td>${response[i].taskName}</td>
                 <td>${response[i].taskCompleted}</td>
                 <td>${response[i].taskNotes}</td>
                 <td>
@@ -52,14 +53,19 @@ $( document ).ready( function(){
     });
   } // end addTasks
 
-function postTask( newTask ){
-  console.log( 'in fetchTask', newTask );
+function postTask(){
+  let newTask = {
+    taskName: $('#taskName').val(),
+    taskCompleted: $('#taskCompleted').val(),
+    taskNotes: $('#taskNotes').val()
+  }
+  console.log('in fetchTask');
   $.ajax({
     type: 'POST',
-    url: '/task',
+    url: '/toDo',
     data: newTask,
-  }).then(()=>{
-    console.log('POST works');
+  }).then((response) => {
+    console.log('POST works', response);
     getTask();
   
   }).catch((err) => {
@@ -69,55 +75,55 @@ function postTask( newTask ){
   
 }
 
-function updateTaskStatus() {
-  console.log('In task PUT')
-  const taskId = $(this).parents('tr').data('task-id')
-  console.log('Task Id is', taskId)
+// function updateTaskStatus() {
+//   console.log('In task PUT')
+//   const taskId = $(this).parents('tr').data('task-id')
+//   console.log('Task Id is', taskId)
 
-  let taskCompleted  = $(this).parents('td').data('taskCompleted');
-  console.log('has task been completed?', taskCompleted);
+//   let taskCompleted  = $(this).parents('td').data('taskCompleted');
+//   console.log('has task been completed?', taskCompleted);
 
-  let changeTaskStatus = {
-    taskStatus: taskCompleted
-  }
+//   let changeTaskStatus = {
+//     taskStatus: taskCompleted
+//   }
 
   
-  $.ajax({
-    url:'/task/' + taskId,
-    method: 'PUT',
-    data: changeTaskStatus
-  })
-  .then(() => {
-    console.log('PUT success');
-    getTask();
-  })
-  .catch((err) => {
-    console.log('There as an error in PUT', err)
-  })
+//   $.ajax({
+//     url:'/task/' + taskId,
+//     method: 'PUT',
+//     data: changeTaskStatus
+//   })
+//   .then(() => {
+//     console.log('PUT success');
+//     getTask();
+//   })
+//   .catch((err) => {
+//     console.log('There as an error in PUT', err)
+//   })
 
-}
+// }
 
-function deleteTask() {
-  // $(this) === <button>
-  // Find the <tr> that's the parent of the <button>
-  let tr = $(this).parents('tr');
-  let taskId = tr.data('task-id');
+// function deleteTask() {
+//   // $(this) === <button>
+//   // Find the <tr> that's the parent of the <button>
+//   let tr = $(this).parents('tr');
+//   let taskId = tr.data('task-id');
 
-  console.log('in deleteTask()', taskId);
+//   console.log('in deleteTask()', taskId);
 
-  // Send a DELETE /task/:id request to the server
-  $.ajax({
-      method: 'DELETE',
-      url: `/task/${taskId}`,  
-  })
-      .then(() => {
-          console.log('DELETE /task succeeded 👍');
-      })
-      .catch((err) => {
-          alert('Failed to delete task. Sorry.');
-          console.log('DELETE /task failed:', err);
-      });
-}
+//   // Send a DELETE /task/:id request to the server
+//   $.ajax({
+//       method: 'DELETE',
+//       url: `/task/${taskId}`,  
+//   })
+//       .then(() => {
+//           console.log('DELETE /task succeeded 👍');
+//       })
+//       .catch((err) => {
+//           alert('Failed to delete task. Sorry.');
+//           console.log('DELETE /task failed:', err);
+//       });
+// }
 
 // function deleteTask() {
 //   const taskId = $(this).parents('tr').data('task-id');
