@@ -21,6 +21,72 @@ ToDoRouter.get('/', (req, res) => {{
         });
 }});
 
+// POST
+ToDoRouter.post('/', (req, res)=>{
+    let addTask = req.body;
+    console.log('adding task!', addTask);
     
+    const sqlQuery = `
+    INSERT INTO "task"
+        ("TaskName", "taskCompleted", "taskNotes")
+    VALUES
+        ($1, $2, $3);
+`; 
+const sqlParams = [
+    req.body.taskName,        
+    req.body.taskCompleted,         
+    req.body.taskNotes,
+];
+console.log(sqlQuery);
 
-module.exports = ToDoRouter;
+pool.query(sqlQuery, sqlParams)
+        .then(() => {
+            res.sendStatus(201);
+        })
+        .catch((err) => {
+            console.log(`POST to db failed: ${err}`);
+            res.sendStatus(500);
+        });
+});
+
+// PUT
+ToDoRouter.put('/:id', (req, res) => {
+    console.log('updating task stat', req.params.id);
+    let taskId = req.params.id;
+    
+    let taskStatus = req.body.taskStatus;
+    console.log('task status', taskStatus)
+
+    let changeTaskStatus;
+    if (taskStatus === 'true'){
+        changeTaskStatus = false;
+    }
+    else {
+        changeTaskStatus = true;
+    }
+    console.log('task status', changeTaskStatus)
+
+    const sqlQuery = `
+    UPDATE task
+    SET "taskCompleted" = $2
+    WHERE id = $1;
+    `
+
+    const sqlParams = [
+        taskId,
+        changeTaskStatus
+    ];
+
+    pool.query(sqlQuery, sqlParams)
+    .then(() => {
+        res.sendStatus(200)
+    })
+    .catch((err) => {
+        console.log(`Failed to PUT ${err}`);
+        res.sendStatus(500)
+    });
+
+});
+
+
+module.exports = pool;
