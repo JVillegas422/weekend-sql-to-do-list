@@ -3,10 +3,10 @@ const pool = require('../modules/pool')
 const toDoRouter = express.Router();
 // DB CONNECTION
 
-toDoRouter.get('/toDo', (req, res) => {
+toDoRouter.get('/', (req, res) => {
     const sqlQuery = `
-        SELECT * FROM toDo
-        ORDER BY "name" ASC
+        SELECT * FROM "toDo"
+        ORDER BY "taskName" ASC
     `;
 
     pool.query(sqlQuery)
@@ -22,9 +22,7 @@ toDoRouter.get('/toDo', (req, res) => {
 });
 
 // POST
-toDoRouter.post('/toDo', (req, res)=>{
-    let addTask = req.body;
-    console.log('adding task!', addTask);
+toDoRouter.post('/', (req, res)=>{
     
     const sqlQuery = `
     INSERT INTO "toDo"
@@ -40,7 +38,7 @@ const sqlParams = [
 console.log(sqlQuery);
 
 pool.query(sqlQuery, sqlParams)
-        .then(() => {
+        .then((dbRes) => {
             res.sendStatus(201);
         })
         .catch((err) => {
@@ -52,62 +50,48 @@ pool.query(sqlQuery, sqlParams)
 // PUT
 toDoRouter.put('/:id', (req, res) => {
     console.log('updating task stat', req.params.id);
-    let taskId = req.params.id;
-    
-    let taskStatus = req.body.taskStatus;
-    console.log('task status', taskStatus)
-
-    let changeTaskStatus;
-    if (taskStatus === 'true'){
-        changeTaskStatus = false;
-    }
-    else {
-        changeTaskStatus = true;
-    }
-    console.log('task status', changeTaskStatus)
 
     const sqlQuery = `
-    UPDATE toDo
-    SET "taskCompleted" = $2
+    UPDATE "toDo"
+    SET "taskCompleted" = true
     WHERE id = $1;
-    `
+    `;
 
     const sqlParams = [
-        taskId,
-        changeTaskStatus
+        req.params.id,
     ];
 
     pool.query(sqlQuery, sqlParams)
     .then(() => {
-        res.sendStatus(200)
+        res.sendStatus(201)
     })
     .catch((err) => {
-        console.log(`Failed to PUT ${err}`);
-        res.sendStatus(500)
+        console.log(`Put failed ${err}`);
+        res.sendStatus(500);
     });
 
 });
 
 // DELETE
 toDoRouter.delete('/:id', (req, res) => {
-    let taskId = req.params.id;
-    console.log('Delete request for id', taskId);
+    let toDoId = req.params.id;
+    console.log('Delete task', toDoId);
   
     let sqlQuery = `
-    DELETE FROM "tasksToDo" 
+    DELETE FROM "toDo" 
     WHERE "id" = $1;
     `;
     const sqlParams = [
-        taskId,             
+        toDoId,             
     ];
     pool.query(sqlQuery, sqlParams)
       .then(() => {
-        console.log('task deleted');
-        res.sendStatus(204);
+          console.log('task deleted');
+            res.sendStatus(204);
       })
       .catch( (error) => {
-        console.log(`Error making database query`, error);
-        res.sendStatus(500); 
+          console.log(`Error making database query`, error);
+            res.sendStatus(500); 
       })
   })
 

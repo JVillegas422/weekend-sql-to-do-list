@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static('server/public'));
 
 // ROUTES
-let toDoRouter = require('./routes/toDo.router')
+let toDoRouter = require('./routes/toDo.router.js')
 app.use('/toDo', toDoRouter);
 
 // Start listening for requests on a specific port

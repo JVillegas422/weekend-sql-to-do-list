@@ -7,77 +7,111 @@ function onReady() {
     // Establish Click Listeners
     // setupClickListeners()
     // load existing task on page load
-    $('.addTaskBtn').on('click', getTask);
-    // getTask();
+    $('.addTaskBtn').on('click', postTask);
+    $(document).on('click', '.deleteTaskBtn', deleteTask);
+    $('#taskTableBody').on('click', '.complete-button', updateTaskStatus);
+    getTask();
     // postTask();
 }
   
   function getTask(){
     console.log( 'in get task' );
     // ajax call to server to get task
-    $('#taskTableBody').empty();
     $.ajax({
         type: 'GET',
         url: '/toDo'
     }).then(function (response) {
         console.log('GET /toDo response', response);
-        for (let i = 0; i < response.length; i++) {
-            $('#taskTable').append(`
-            <tr data-toDo-id="${response[i].id}">
-                <td>${response[i].taskName}</td>
-                <td>${response[i].taskCompleted}</td>
-                <td>${response[i].taskNotes}</td>
-                <td>
-                    <button class="addTaskBtn" type="button">Add Task</button>
-                    <button class="deleteTaskBtn" type="button">❌</button>
-                </td>
-            </tr>
-          `);
-        }
+        // Moving append data to its own function 
+        // for (let i = 0; i < response.length; i++) {
+        //     $('#taskTable').append(`
+        //     <tr data-toDo-id="${response[i].id}">
+        //         <td>${response[i].taskName}</td>
+        //         <td>${response[i].taskCompleted}</td>
+        //         <td>${response[i].taskNotes}</td>
+        //         <td>
+        //             <button class="addTaskBtn" type="button">Add Task</button>
+        //             <button class="deleteTaskBtn" type="button">❌</button>
+        //         </td>
+        //     </tr>
+        //   `);
+        // }
+        appendToDoData(response);
+    })
+    .catch((err) => {
+      console.log('Get /toDo failed', err);
+      alert('Something went wrong..');
+
+      $('body').html(
+        `<h1>Tempprarily unavailable.</h1>`
+      );
     });
+    console.log('after ajax command');
   }
+
+  // Append data to DOM
+function appendToDoData(allItems) {
+  //console.log('toDo list is working!');
+    $("#taskTableBody").empty();
+    for (let item of allItems) {
+        const toDoClass = item.taskCompleted ? 'strikethrough' : '';
+        const buttonText = item.taskCompleted ? 'Incomplete' : 'complete';
+        $('#taskTableBody').append(`
+        <tr class="${toDoClass}">
+          <td>${item.taskName}</td>
+          <td>${item.taskCompleted}</td>
+          <td>${item.taskNotes}</td>
+          <td>
+              <button class="complete-button" data-id="${item.id}">
+                ${buttonText}
+              </button>
+              <button class="deleteTaskBtn" type="button">
+                Delete Task
+              </button>
+          </td>
+        </tr>
+      `);
+    }
+}
 
 function postTask(){
   let newTask = {
-    taskName: taskName,
-    taskCompleted: taskCompleted,
-    taskNotes: taskNotes
+    taskName: $('#taskName').val(),
+    taskCompleted: $('#taskCompleted').val(),
+    taskNotes: $('#taskNotes').val()
   }
 
-  console.log('in fetchTask');
+  console.log('in postTask');
   $.ajax({
     type: 'POST',
     url: '/toDo',
     data: newTask,
-  }).then((response) => {
+  })
+  .then((response) => {
     console.log('POST works', response);
+    $('#taskName').val(''),
+    $('#taskCompleted').val(''),
+    $('#taskNotes').val('')
     getTask();
   
-  }).catch((err) => {
+  })
+  .catch((err) => {
     alert('Failed to add task');
     console.log('POST failed:', err);
   });
   
 }
 
+// Updates if task has been completed
 function updateTaskStatus() {
   console.log('In task PUT');
-  const toDoId = $(this).parents('tr').data('toDo-id')
-  console.log('Task Id is', toDoId)
-
-  let taskCompleted  = $(this).parents('td').data('taskCompleted');
-  console.log('has task been completed?', taskCompleted);
-
-  let updateTaskStatus = {
-    taskStatus: taskCompleted
-  }
+  const itemId = $(this).data('id')
   
   $.ajax({
-    url: `/toDo/${toDoId}`,
     method: 'PUT',
-    data: updateTaskStatus
+    url: `/toDo/${itemId}`,
   })
-  .then((res) => {
+  .then((response) => {
     console.log('PUT success');
     getTask();
   })
@@ -88,23 +122,22 @@ function updateTaskStatus() {
 }
 
 function deleteTask() {
-  // $(this) === <button>
-  // Find the <tr> that's the parent of the <button>
   let tr = $(this).parents('tr');
-  let taskId = tr.data('task-id');
+  let toDoId = tr.data('toDo-id');
 
-  console.log('in deleteTask()', taskId);
+  console.log('in deleteTask()', toDoId);
 
   // Send a DELETE /task/:id request to the server
   $.ajax({
       method: 'DELETE',
-      url: `/toDo/${taskId}`,  
+      url: `/toDo/${toDoId}`,  
   })
-      .then(() => {
-          console.log('DELETE /toDo succeeded 👍');
-      })
-      .catch((err) => {
-          alert('Failed to delete task. Sorry.');
-          console.log('DELETE /toDo failed:', err);
-      });
+  .then(() => {
+      getTask();
+      console.log('DELETE /toDo succeeded 👍');
+  })
+  .catch((err) => {
+      alert('Failed to delete task. Sorry.');
+      console.log('DELETE /toDo failed:', err);
+  });
 }
