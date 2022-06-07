@@ -77,7 +77,7 @@ toDoRouter.delete('/:id', (req, res) => {
     let toDoId = req.params.id;
     console.log('Delete task', toDoId);
   
-    let sqlQuery = `
+    const sqlQuery = `
     DELETE FROM "toDo" 
     WHERE "id" = $1;
     `;
@@ -89,9 +89,9 @@ toDoRouter.delete('/:id', (req, res) => {
           console.log('task deleted');
             res.sendStatus(204);
       })
-      .catch( (error) => {
-          console.log(`Error making database query`, error);
-            res.sendStatus(500); 
+      .catch((err) => {
+          console.log(`Error making database query`, err);
+            // res.sendStatus(500); 
       })
   })
 

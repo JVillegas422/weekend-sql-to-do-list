@@ -6,7 +6,6 @@ function onReady() {
   console.log('JQ is works');
     // Establish Click Listeners
     // setupClickListeners()
-    // load existing task on page load
     $('.addTaskBtn').on('click', postTask);
     $(document).on('click', '.deleteTaskBtn', deleteTask);
     $('#taskTableBody').on('click', '.complete-button', updateTaskStatus);
@@ -55,7 +54,8 @@ function appendToDoData(allItems) {
     $("#taskTableBody").empty();
     for (let item of allItems) {
         const toDoClass = item.taskCompleted ? 'strikethrough' : '';
-        const buttonText = item.taskCompleted ? 'Incomplete' : 'complete';
+        const buttonText = item.taskCompleted ? 'Complete' : 'Incomplete';
+        // const buttonText = item.taskCompleted ? 'Incomplete' : 'complete';
         $('#taskTableBody').append(`
         <tr class="${toDoClass}">
           <td>${item.taskName}</td>
@@ -65,7 +65,7 @@ function appendToDoData(allItems) {
               <button class="complete-button" data-id="${item.id}">
                 ${buttonText}
               </button>
-              <button class="deleteTaskBtn" type="button">
+              <button class="deleteTaskBtn" data-id="${item.id}">
                 Delete Task
               </button>
           </td>
@@ -122,19 +122,17 @@ function updateTaskStatus() {
 }
 
 function deleteTask() {
-  let tr = $(this).parents('tr');
-  let toDoId = tr.data('toDo-id');
-
+  let toDoId = $(this).data("id");
+  // let toDoId = tr.data('toDo-id');
   console.log('in deleteTask()', toDoId);
-
-  // Send a DELETE /task/:id request to the server
+  // Send a DELETE /toDo/:id request to the server
   $.ajax({
       method: 'DELETE',
-      url: `/toDo/${toDoId}`,  
+      url: `/toDo/${toDoId}`
   })
   .then(() => {
-      getTask();
       console.log('DELETE /toDo succeeded 👍');
+      getTask();
   })
   .catch((err) => {
       alert('Failed to delete task. Sorry.');
