@@ -45,6 +45,23 @@ tasksToDoRouter.post('/', (req, res) => {
 });
 
 // Add Delete task here
+tasksToDoRouter.delete('/:id', (req, res) => {
+    let taskId = req.params.id;
+    console.log('in delete in /:id', taskId);
+
+    const sqlText = `
+        DELETE FROM "tasksToDo"
+        WHERE "id" = $1;
+    `;
+    pool.query(sqlText, [taskId])
+      .then((dbRes) => {
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log('delete failed in /:id', err);
+        res.sendStatus(500);
+      });
+});
 
 
 
