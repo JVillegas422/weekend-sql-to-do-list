@@ -21,7 +21,7 @@ _Coming Soon_
 
 ## Database Setup
 
-You'll also need to a database. 
+You'll also need a database. 
 
 The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries. 
 
@@ -41,7 +41,13 @@ The project is built on [Postgres](https://www.postgresql.org/download/), so you
 
 ## Usage 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam at massa in faucibus. Etiam volutpat, risus non mollis convallis, velit nisi pulvinar mi, eu faucibus orci nisi eget nibh. Integer a velit pretium, volutpat arcu eleifend, fringilla elit. Cras erat sapien, convallis venenatis tellus vitae, feugiat dictum felis.
+1. Fill in a task name and task note.
+
+2. Click, `Add Task` and the task will be listed under Task List.
+
+3. Once a task has been completed, click the `Incomplete` button. This will change to `Complete` and cross out the completed task.
+
+4. If you no longer need the task in your list, click the `Delete` button and this will remove the task from your list.
 
 ## Built With 
 
