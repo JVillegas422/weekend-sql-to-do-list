@@ -66,7 +66,7 @@ function renderTask(newTask) {
                 <td>${task.taskNotes}</td>
                 <td>${task.taskIsComplete}</td>
                 <td>
-                    <button class="taskCompleteBtn" data-id="${task.id}" data-taskName="${task.taskName}" data-taskNotes="${task.taskNotes}">
+                    <button class="taskCompleteBtn" data-id="${task.id}">
                         Task Complete ✅
                     </button>
                 </td>
