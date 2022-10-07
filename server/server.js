@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+const tasksToDoRouter = require('./routes/tasksToDo.router');
 
 // Setup body parser - to translating request body into JSON
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,8 +13,8 @@ app.use(bodyParser.json());
 // from the server/public folder
 app.use(express.static('server/public'));
 
-// ROUTES go here 👇
-
+// ROUTES goes here 👇
+app.use('tasksToDo', tasksToDoRouter);
 
 
 // Listening for requests on a specific port
