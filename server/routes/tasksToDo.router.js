@@ -35,10 +35,10 @@ tasksToDoRouter.post('/', (req, res) => {
     console.log('sqlText', sqlText);
 
     pool.query(sqlText, [newTask])
-        .then(dbRes => {
+        .then((dbRes) => {
             res.sendStatus(201);
         })
-        .catch(err => {
+        .catch((err) => {
             console.log('error in POST', err);
             res.sendStatus(500);
         });
