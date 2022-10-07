@@ -81,6 +81,9 @@ function renderTask(newTask) {
             </tr>
         `);
     };
+    $('#taskNameIn').val(''),
+    $('#taskNotesIn').val(''),
+    $('#taskIsCompleteIn').val('')
 };
 
 // Removes specific task from list
