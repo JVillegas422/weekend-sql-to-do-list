@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(express.static('server/public'));
 
 // ROUTES goes here 👇
-app.use('tasksToDo', tasksToDoRouter);
+app.use('/tasksToDo', tasksToDoRouter);
 
 
 // Listening for requests on a specific port

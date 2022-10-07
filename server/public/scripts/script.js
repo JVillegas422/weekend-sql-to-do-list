@@ -5,7 +5,9 @@ $(document).ready(onReady);
 function onReady() {
     console.log('in JQ!');
     // Add click listeners here 👇
+    $('#addButton').on('click', postTask);
 
+    getTask();
 
 };
 
@@ -13,16 +15,38 @@ function onReady() {
 function getTask() {
     console.log('in GET task');
 
+    $.ajax({
+        method: 'GET',
+        url: '/tasksToDo'
+    })
+      .then((response) => {
+        console.log('in ajax GET .then', response);
+        renderTask();
+      })
+      .catch((err) => {
+        console.log('Something went wrong in GET', err);
+      });
 };
 
 // Adds task to database
 function postTask() {
     console.log('in POST task');
 
+    $.ajax({
+        method: 'POST',
+        url: '/tasksToDo'
+    })
+      .then((response) => {
+        console.log('in ajax POST .then', response);
+        getTask();
+      })
+      .catch((err) => {
+        console.log('Something went wrong in POST', err);
+      });
 };
 
 // Displays array of tasks to DOM
-function appendTask() {
+function renderTask() {
     console.log('in appendTask!');
 
 };
