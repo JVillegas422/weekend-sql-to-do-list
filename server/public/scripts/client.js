@@ -7,6 +7,7 @@ function onReady() {
     // Add click listeners here 👇
     $('#addButton').on('click', postTask);
     $('#showTasks').on('click', '.deleteBtn', deleteTask);
+    $('#showTasks').on('click', '.taskCompleteBtn', updateTask);
 
     getTask();
 
@@ -60,14 +61,16 @@ function renderTask(newTask) {
 
     $('#showTasks').empty();
     for (let task of newTask) {
+        const tasksToDoClass = task.taskIsComplete ? 'strikethrough' : '';
+        const buttonText = task.taskIsComplete ? 'Complete' : 'Incomplete';
         $('#showTasks').append(`
-            <tr>
+            <tr class="${tasksToDoClass}">
                 <td>${task.taskName}</td>
                 <td>${task.taskNotes}</td>
                 <td>${task.taskIsComplete}</td>
                 <td>
                     <button class="taskCompleteBtn" data-id="${task.id}">
-                        Task Complete ✅
+                        ${buttonText}
                     </button>
                 </td>
                 <td>
@@ -100,8 +103,21 @@ function deleteTask() {
 };
 
 // Updates specific task once completed 
-// function updateTask() {
-//     console.log('in updateTask!');
+function updateTask() {
+    console.log('in updateTask!');
 
-// };
+    let taskId = $(this).data('id');
+
+    $.ajax({
+        method: 'PUT',
+        url: `/tasksToDo/${taskId}`,
+    })
+      .then((response) => {
+        console.log('Task updated!');
+        getTask();
+      })
+      .catch((err) => {
+        console.log('Error with updating task', err);
+      });
+};
 

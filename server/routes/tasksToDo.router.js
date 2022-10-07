@@ -68,10 +68,26 @@ tasksToDoRouter.delete('/:id', (req, res) => {
       });
 });
 
-
-
 // Add PUT/update task here
+tasksToDoRouter.put('/:id', (req, res) => {
+    let taskId = req.params.id;
+    console.log('in PUT in /:id', taskId);
 
+    const sqlText = `
+        UPDATE "tasksToDo"
+        SET "taskIsComplete" = true
+        WHERE "id" = $1;
+    `;
+    
+    pool.query(sqlText, [taskId])
+      .then((response) => {
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log('PUT failed in /:id', err);
+        res.sendStatus(500);
+      });
+});
 
 
 
