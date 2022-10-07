@@ -66,11 +66,15 @@ function renderTask(newTask) {
                 <td>${task.taskNotes}</td>
                 <td>${task.taskIsComplete}</td>
                 <td>
-                    <button class="taskCompleteBtn" data-id="${task.id}">
+                    <button class="taskCompleteBtn" data-id="${task.id}" data-taskName="${task.taskName}" data-taskNotes="${task.taskNotes}">
                         Task Complete ✅
                     </button>
                 </td>
-
+                <td>
+                    <button class="deleteBtn" data-id=${task.id}>
+                        Delete ❌
+                    </button>
+                </td>
             </tr>
         `);
     };
@@ -101,9 +105,3 @@ function deleteTask() {
 
 // };
 
-                // <td>
-                //     <button class="deleteBtn" 
-                //     data-id=${task.id} data-taskName="${task.taskName}" data-taskNotes="${task.taskNotes}">
-                //         Task Complete ✅
-                //     </button>
-                // </td>
