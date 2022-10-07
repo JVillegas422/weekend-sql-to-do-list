@@ -32,6 +32,13 @@ function getTask() {
 function postTask() {
     console.log('in POST task');
 
+    let newTask = {
+        taskName: $('#taskNameIn').val(),
+        taskNotes: $('#taskNotesIn').val(),
+        taskCompleted: $('#taskCompletedIn').val()
+    };
+    console.log('newTask', newTask);
+
     $.ajax({
         method: 'POST',
         url: '/tasksToDo'
@@ -46,9 +53,24 @@ function postTask() {
 };
 
 // Displays array of tasks to DOM
-function renderTask() {
+function renderTask(newTask) {
     console.log('in appendTask!');
 
+    $('#showTasks').empty();
+    for (let task of newTask) {
+        $('#showTasks').append(`
+            <tr>
+                <td>${task.taskName}</td>
+                <td>${task.taskNotes}</td>
+                <td>${task.taskCompleted}</td>
+                <td>
+                    <button class="deleteBtn" data-id="${task.id}">
+                        Task Complete ✅
+                    </button>
+                </td>
+            </tr>
+        `);
+    };
 };
 
 // Removes specific task from list
