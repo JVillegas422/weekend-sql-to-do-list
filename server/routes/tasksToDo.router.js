@@ -28,7 +28,7 @@ tasksToDoRouter.post('/', (req, res) => {
 
     const sqlText = `
         INSERT INTO "tasksToDo"
-            ("taskName", "taskIsComplete", "taskNotes")
+            ("taskName", "taskNotes", "taskIsComplete")
         VALUES
             ($1, $2, $3);
     `;

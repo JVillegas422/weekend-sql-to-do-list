@@ -21,7 +21,7 @@ function getTask() {
     })
       .then((response) => {
         console.log('in ajax GET .then', response);
-        renderTask();
+        renderTask(response);
       })
       .catch((err) => {
         console.log('Something went wrong in GET', err);
@@ -41,7 +41,8 @@ function postTask() {
 
     $.ajax({
         method: 'POST',
-        url: '/tasksToDo'
+        url: '/tasksToDo',
+        data: newTask,
     })
       .then((response) => {
         console.log('in ajax POST .then', response);
@@ -62,9 +63,10 @@ function renderTask(newTask) {
             <tr>
                 <td>${task.taskName}</td>
                 <td>${task.taskNotes}</td>
-                <td>${task.taskCompleted}</td>
+                <td>${task.taskComplete}</td>
                 <td>
-                    <button class="deleteBtn" data-id="${task.id}">
+                    <button class="deleteBtn" 
+                    data-id=${task.id} data-taskName="${task.taskName}" data-taskNotes="${task.taskNotes}">
                         Task Complete ✅
                     </button>
                 </td>
@@ -74,13 +76,13 @@ function renderTask(newTask) {
 };
 
 // Removes specific task from list
-function deleteTask() {
-    console.log('in deleteTask!');
+// function deleteTask() {
+//     console.log('in deleteTask!');
 
-};
+// };
 
 // Updates specific task once completed 
-function updateTask() {
-    console.log('in updateTask!');
+// function updateTask() {
+//     console.log('in updateTask!');
 
-};
+// };

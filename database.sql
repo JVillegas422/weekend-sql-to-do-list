@@ -1,16 +1,16 @@
 CREATE TABLE "tasksToDo" (
 	"id" SERIAL PRIMARY KEY,
 	"taskName" VARCHAR(30) NOT NULL,
-	"taskIsComplete" BOOLEAN DEFAULT FALSE,
-	"taskNotes" VARCHAR(150)
+	"taskNotes" VARCHAR(150),
+	"taskIsComplete" BOOLEAN
 );
 
 
 INSERT INTO "tasksToDo"
-	("taskName", "taskIsComplete", "taskNotes")
+	("taskName", "taskNotes", "taskIsComplete")
 VALUES
-	('wash cloths', false, 'lots of laundry to do..'),
-	('take out trash', false, 'so much trash...'),
-	('clean bedroom', false, 'really needs to be cleaned...');
+	('wash cloths', 'lots of laundry to do..', false),
+	('take out trash', 'so much trash...', false),
+	('clean bedroom', 'really needs to be cleaned...', false);
 	
 SELECT * FROM "tasksToDo"
