@@ -6,6 +6,7 @@ function onReady() {
     console.log('in JQ!');
     // Add click listeners here 👇
     $('#addButton').on('click', postTask);
+    $('#showTasks').on('click', '.deleteBtn', deleteTask);
 
     getTask();
 
@@ -65,11 +66,11 @@ function renderTask(newTask) {
                 <td>${task.taskNotes}</td>
                 <td>${task.taskIsComplete}</td>
                 <td>
-                    <button class="deleteBtn" 
-                    data-id=${task.id} data-taskName="${task.taskName}" data-taskNotes="${task.taskNotes}">
+                    <button class="taskCompleteBtn" data-id="${task.id}">
                         Task Complete ✅
                     </button>
                 </td>
+
             </tr>
         `);
     };
@@ -79,6 +80,19 @@ function renderTask(newTask) {
 function deleteTask() {
     console.log('in deleteTask!');
 
+    let taskId = $(this).data('id');
+
+    $.ajax({
+        method: 'DELETE',
+        url: `/tasksToDo/${taskId}`,
+    })
+      .then((response) => {
+        console.log('Task deleted!');
+        getTask();
+      })
+      .catch((err) => {
+        console.log('Error with delete task', err);
+      });
 };
 
 // Updates specific task once completed 
@@ -86,3 +100,10 @@ function deleteTask() {
 //     console.log('in updateTask!');
 
 // };
+
+                // <td>
+                //     <button class="deleteBtn" 
+                //     data-id=${task.id} data-taskName="${task.taskName}" data-taskNotes="${task.taskNotes}">
+                //         Task Complete ✅
+                //     </button>
+                // </td>

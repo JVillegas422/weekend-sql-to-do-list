@@ -23,8 +23,7 @@ tasksToDoRouter.get('/', (req, res) => {
 
 // POST 
 tasksToDoRouter.post('/', (req, res) => {
-    let newTask = req.body;
-    console.log('Adding new task', newTask);
+    console.log('Adding new task', req.body);
 
     const sqlText = `
         INSERT INTO "tasksToDo"
@@ -32,9 +31,15 @@ tasksToDoRouter.post('/', (req, res) => {
         VALUES
             ($1, $2, $3);
     `;
+
+    const sqlParams = [
+        req.body.taskName,
+        req.body.taskNotes,
+        req.body.taskIsComplete
+    ];
     console.log('sqlText', sqlText);
 
-    pool.query(sqlText, [newTask])
+    pool.query(sqlText, sqlParams)
         .then((dbRes) => {
             res.sendStatus(201);
         })
