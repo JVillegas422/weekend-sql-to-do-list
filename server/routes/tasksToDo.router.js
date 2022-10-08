@@ -75,7 +75,7 @@ tasksToDoRouter.put('/:id', (req, res) => {
 
     const sqlText = `
         UPDATE "tasksToDo"
-        SET "taskIsComplete" = true
+        SET "taskIsComplete" = NOT "taskIsComplete"
         WHERE "id" = $1;
     `;
     

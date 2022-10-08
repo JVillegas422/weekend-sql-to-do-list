@@ -62,16 +62,21 @@ function renderTask(newTask) {
     $('#showTasks').empty();
     for (let task of newTask) {
         const tasksToDoClass = task.taskIsComplete ? 'strikethrough' : '';
-        const buttonText = task.taskIsComplete ? 'Complete' : 'Incomplete';
+        const buttonText = task.taskIsComplete ? 'Completed' : 'Incomplete';
+
+        const checkClass = task.taskIsComplete ? 'checkClass' : '';
+        const checkText = task.taskIsComplete ? '' : '';
+        
         $('#showTasks').append(`
             <tr class="${tasksToDoClass}">
                 <td>${task.taskName}</td>
                 <td>${task.taskNotes}</td>
-                <td>${task.taskIsComplete}</td>
-                <td>
-                    <button class="taskCompleteBtn" data-id="${task.id}">
-                        ${buttonText}
-                    </button>
+                <td class="${checkClass}">
+                    <label label class="container">
+                    <input class="taskCompleteBtn" ${checkText} data-id="${task.id}" type="checkbox" />
+                     ${buttonText}
+                    <span class="checkmark"></span>
+                    </label>
                 </td>
                 <td>
                     <button class="deleteBtn" data-id=${task.id}>
