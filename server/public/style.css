@@ -1,15 +1,271 @@
-table, thead, tr {
-    border: 2px solid black;
-    border-collapse: collapse;
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Griffy&display=swap');
+
+body {
+    background-image: url("./images/autumn.jpeg");
+    font-family: 'Griffy', cursive;
 }
 
-thead, tr {
-    height: 35px;
-    width: 115px;
-    padding-left: 5px;
+body, h1 {
+    margin: 0;
 }
+
+/* form, section, table {
+    text-align: center;
+} */
+
+/* table, thead, tr {
+    border: 5px solid black;
+    border-collapse: collapse;
+} */
+
+tbody, thead, tr, td, th {
+    border: 5px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+table {
+    margin: auto;
+}
+
+/* tbody {
+    font-weight: 600;
+    font-size: 20px;
+} */
+
+th {
+    background-color: rgb(240, 124, 124);
+    text-shadow: 2px 2px 2px rgb(51, 4, 98);
+}
+
+tr {
+    background-color: #D8973C;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #E8DFC4;
+    }
 
 .strikethrough {
     text-decoration: line-through;
-    color: red;
+    text-decoration-color: rgb(173, 23, 210);
+    text-decoration-style: wavy;
 }
+
+h1 {
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 5rem;
+}
+
+.tableText, form {
+    text-align: center;
+}
+
+h1, h2 {
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: 45px;
+    color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 4px rgb(242, 173, 45);
+}
+
+.inputLable {
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 4px rgb(242, 173, 45);
+    padding: 5px;
+}
+
+input {
+    background-color: #b2abb6;
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: medium;
+    border-radius: 8px;
+}
+
+.deleteBtn {
+    background-color: rgb(73, 69, 69);
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgb(51, 4, 98);
+    width: 45px;
+    height: 40px;
+}
+
+#addButton {
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: large;
+    border-radius: 8px;
+    background-color: rgb(83, 23, 115);
+    text-shadow: 1px 1px 1px rgb(242, 173, 45);
+    box-shadow: 2px 2px 2px 2px black;
+    height: 60px;
+    width: 90px;
+}
+
+/* testing use of checkbox */
+
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #b2abb6;
+    border-radius: 5px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: rgb(70, 70, 70);
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #6a13b5;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  
+  
+  /* Testing different checkbox */
+  
+  /* .box_4{
+	background: #eee;
+} 
+
+.input_wrapper{
+  width: 80px;
+  height: 40px;
+  position: relative;
+  cursor: pointer;
+} 
+
+.input_wrapper input[type="checkbox"]{
+  width: 80px;
+  height: 40px;
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: #315e7f;
+  border-radius: 2px;
+  position: relative;
+  outline: 0;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+} 
+
+.input_wrapper input[type="checkbox"]:after{
+  position: absolute;
+  content: "";
+  top: 3px;
+  left: 3px;
+  width: 34px;
+  height: 34px;
+  background: #dfeaec;
+  z-index: 2;
+  border-radius: 2px;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+} 
+
+.input_wrapper svg{
+  position: absolute;
+  top: 50%;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  fill: #fff;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+  z-index: 1;
+} 
+
+.input_wrapper .is_checked{
+  width: 18px;
+  left: 18%;
+  -webkit-transform: translateX(190%) translateY(-30%) scale(0);
+          transform: translateX(190%) translateY(-30%) scale(0);
+}
+
+.input_wrapper .is_unchecked{
+  width: 15px;
+  right: 10%;
+  -webkit-transform: translateX(0) translateY(-30%) scale(1);
+          transform: translateX(0) translateY(-30%) scale(1);
+}
+
+.input_wrapper input[type="checkbox"]:checked{
+  background: #23da87;
+}
+
+.input_wrapper input[type="checkbox"]:checked:after{
+  left: calc(100% - 37px);
+}
+
+.input_wrapper input[type="checkbox"]:checked + .is_checked{
+  -webkit-transform: translateX(0) translateY(-30%) scale(1);
+          transform: translateX(0) translateY(-30%) scale(1);
+}
+
+.input_wrapper input[type="checkbox"]:checked ~ .is_unchecked{
+  -webkit-transform: translateX(-190%) translateY(-30%) scale(0);
+          transform: translateX(-190%) translateY(-30%) scale(0);
+}  */
+
+/* Switch 4 Specific Style End
