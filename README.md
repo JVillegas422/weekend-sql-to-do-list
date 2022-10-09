@@ -10,8 +10,8 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
 
 ## Screen Shot
 
-_Coming Soon_
-
+![halloween task list](server/public/images/halloween_task_list.png)
+ 
 ## Prerequisites 
 
 - PostgresSQL
