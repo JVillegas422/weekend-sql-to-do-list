@@ -9,8 +9,10 @@ CREATE TABLE "tasksToDo" (
 INSERT INTO "tasksToDo"
 	("taskName", "taskNotes", "taskIsComplete")
 VALUES
-	('wash cloths', 'lots of laundry to do..', false),
-	('take out trash', 'so much trash...', false),
-	('clean bedroom', 'really needs to be cleaned...', false);
+	('get more candy', 'need lots of candy!', false),
+	('need another skeleton', 'they always end up missing. . .', false),
+	('clean the dungeon', 'blood everywhere. . .', false),
+	('clean the witches cauldron', 'need this done before midnight!', false),
+	('feed the werewolf', 'loves fresh meat', false);
 	
 SELECT * FROM "tasksToDo"
