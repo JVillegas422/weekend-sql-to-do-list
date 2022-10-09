@@ -80,7 +80,7 @@ function renderTask(newTask) {
                 </td>
                 <td>
                     <button class="deleteBtn" data-id=${task.id}>
-                        Delete ❌
+                         ☠️
                     </button>
                 </td>
             </tr>
@@ -93,22 +93,42 @@ function renderTask(newTask) {
 
 // Removes specific task from list
 function deleteTask() {
-    console.log('in deleteTask!');
-
     let taskId = $(this).data('id');
 
-    $.ajax({
-        method: 'DELETE',
-        url: `/tasksToDo/${taskId}`,
-    })
-      .then((response) => {
-        console.log('Task deleted!');
-        getTask();
+    //Sweet alert to verify you want to delete said tasks
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this task!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
       })
-      .catch((err) => {
-        console.log('Error with delete task', err);
-      });
-};
+      .then((willDelete) => {
+        if (willDelete) {
+          swal(
+            "Poof! Your task has been deleted!", {
+                icon: "success",
+        })
+          //Sends a DELETE request to server to delete the task from DB
+        $.ajax({
+            url: `/tasksToDo/${taskId}`,
+            method: 'DELETE',
+        })
+          .then(() => {
+            console.log('DELETE task successful');
+            getTask()
+          })
+          .catch((err) => {
+            console.log(`DELETE tasks failed ${err}`)
+            alert('Unable to Delete Task at this time')
+          })
+        }
+        else {
+            swal('Your task has been saved')
+        }
+    });
+}
+
 
 // Updates specific task once completed 
 function updateTask() {
@@ -130,8 +150,8 @@ function updateTask() {
 };
 
 
-// Different checkbox
-{/* <td>
+// Testing a different checkbox
+/* <td>
     <div class="switch_box box_4">
         <div class="input_wrapper">
             <input type="checkbox" class="switch_4"/>
@@ -143,4 +163,4 @@ function updateTask() {
             </svg>
         </div>
     </div>
-</td> */}
+</td> */

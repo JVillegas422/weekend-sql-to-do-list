@@ -1,19 +1,113 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Griffy&display=swap');
 
-table, thead, tr {
-    border: 2px solid black;
+body {
+    background-image: url("./images/autumn.jpeg");
+    font-family: 'Griffy', cursive;
+}
+
+body, h1 {
+    margin: 0;
+}
+
+/* form, section, table {
+    text-align: center;
+} */
+
+/* table, thead, tr {
+    border: 5px solid black;
     border-collapse: collapse;
+} */
+
+tbody, thead, tr, td, th {
+    border: 5px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 25px;
 }
 
-thead, tr {
-    height: 35px;
-    width: 115px;
-    padding-left: 5px;
+table {
+    margin: auto;
 }
+
+/* tbody {
+    font-weight: 600;
+    font-size: 20px;
+} */
+
+th {
+    background-color: rgb(240, 124, 124);
+    text-shadow: 2px 2px 2px rgb(51, 4, 98);
+}
+
+tr {
+    background-color: #D8973C;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #E8DFC4;
+    }
 
 .strikethrough {
     text-decoration: line-through;
-    color: red;
+    text-decoration-color: rgb(173, 23, 210);
+    text-decoration-style: wavy;
+}
+
+h1 {
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 5rem;
+}
+
+.tableText, form {
+    text-align: center;
+}
+
+h1, h2 {
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: 45px;
+    color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 4px rgb(242, 173, 45);
+}
+
+.inputLable {
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 4px rgb(242, 173, 45);
+    padding: 5px;
+}
+
+input {
+    background-color: #b2abb6;
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: medium;
+    border-radius: 8px;
+}
+
+.deleteBtn {
+    background-color: rgb(73, 69, 69);
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgb(51, 4, 98);
+    width: 45px;
+    height: 40px;
+}
+
+#addButton {
+    font-family: 'Griffy', cursive;
+    font-weight: bolder;
+    font-size: large;
+    border-radius: 8px;
+    background-color: rgb(83, 23, 115);
+    text-shadow: 1px 1px 1px rgb(242, 173, 45);
+    box-shadow: 2px 2px 2px 2px black;
+    height: 60px;
+    width: 90px;
 }
 
 /* testing use of checkbox */
@@ -48,7 +142,8 @@ thead, tr {
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #eee;
+    background-color: #b2abb6;
+    border-radius: 5px;
   }
   
   /* On mouse-over, add a grey background color */
@@ -58,7 +153,7 @@ thead, tr {
 
   /* When the checkbox is checked, add a blue background */
   .container input:checked ~ .checkmark {
-    background-color: #2196F3;
+    background-color: #6a13b5;
   }
   
   /* Create the checkmark/indicator (hidden when not checked) */
@@ -92,16 +187,16 @@ thead, tr {
   
   /* .box_4{
 	background: #eee;
-} */
+} 
 
-/* .input_wrapper{
+.input_wrapper{
   width: 80px;
   height: 40px;
   position: relative;
   cursor: pointer;
-} */
+} 
 
-/* .input_wrapper input[type="checkbox"]{
+.input_wrapper input[type="checkbox"]{
   width: 80px;
   height: 40px;
   cursor: pointer;
@@ -114,9 +209,9 @@ thead, tr {
   outline: 0;
   -webkit-transition: all .2s;
   transition: all .2s;
-} */
+} 
 
-/* .input_wrapper input[type="checkbox"]:after{
+.input_wrapper input[type="checkbox"]:after{
   position: absolute;
   content: "";
   top: 3px;
@@ -128,9 +223,9 @@ thead, tr {
   border-radius: 2px;
   -webkit-transition: all .35s;
   transition: all .35s;
-} */
+} 
 
-/* .input_wrapper svg{
+.input_wrapper svg{
   position: absolute;
   top: 50%;
   -webkit-transform-origin: 50% 50%;
@@ -139,9 +234,9 @@ thead, tr {
   -webkit-transition: all .35s;
   transition: all .35s;
   z-index: 1;
-} */
+} 
 
-/* .input_wrapper .is_checked{
+.input_wrapper .is_checked{
   width: 18px;
   left: 18%;
   -webkit-transform: translateX(190%) translateY(-30%) scale(0);
@@ -155,8 +250,7 @@ thead, tr {
           transform: translateX(0) translateY(-30%) scale(1);
 }
 
-/* Checked State */
-/* .input_wrapper input[type="checkbox"]:checked{
+.input_wrapper input[type="checkbox"]:checked{
   background: #23da87;
 }
 
@@ -172,6 +266,6 @@ thead, tr {
 .input_wrapper input[type="checkbox"]:checked ~ .is_unchecked{
   -webkit-transform: translateX(-190%) translateY(-30%) scale(0);
           transform: translateX(-190%) translateY(-30%) scale(0);
-} */ 
+}  */
 
-/* Switch 4 Specific Style End */
+/* Switch 4 Specific Style End
