@@ -14,7 +14,7 @@ I've also added a sweet alert that provides a prompt to confirm whether you woul
 
 ## Screen Shot
 
-![halloween task list](server/public/images/halloween_task_list.png)
+![halloween task list](server/public/images/halloween_taskList.png)
  
 ## Prerequisites 
 
