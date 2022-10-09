@@ -1,12 +1,16 @@
 ## Project Name
 
-# Weekend Sql To Do List
+# Weekend Sql To Do List (Halloween Theme)
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+_Duration: 13 hours_
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+This project was a lot of fun especially with adding a Halloween theme to it.
+
+I made a tasks-to-do list that utilizes the client, server, and a SQL database. This allows you to add a task, mark them as completed, and gives you the ability to permanetely delete the task from your database. 
+
+I've also added a sweet alert that provides a prompt to confirm whether you would like to delete or keep the specific task item.
 
 ## Screen Shot
 
@@ -41,13 +45,13 @@ The project is built on [Postgres](https://www.postgresql.org/download/), so you
 
 ## Usage 
 
-1. Fill in a task name and task note.
+1. Fill in the task name, task note, and task completed.
 
-2. Click, `Add Task` and the task will be listed under Task List.
+2. Click, `Add Task` and the task will be added to the Task List.
 
-3. Once a task has been completed, click the `Incomplete` button. This will change to `Complete` and cross out the completed task.
+3. Once a task has been completed, click the box next to `Incomplete`. This will change the incomplete to `Completed`, as well as add a line-through on the text.
 
-4. If you no longer need the task in your list, click the `Delete` button and this will remove the task from your list.
+4. If you no longer need the task on your list, click the `Delete` button and this will permanetely remove the task from the database/list.
 
 ## Built With 
 
